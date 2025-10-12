@@ -19,18 +19,47 @@ class Colors:
 
 def main():
     """Main entry point for the CLI."""
-    if len(sys.argv) < 2:
-        print('Usage: aicheck <target_day> <percentage>')
-        print('   or: aicheck <percentage>')
-        print('Example: aicheck 15 25')
-        print('Example: aicheck 25')
-        sys.exit(1)
-
     target_day = 1
     percentage = None
 
     # Parse arguments - flexible order
-    if len(sys.argv) == 2:
+    if len(sys.argv) < 2:
+        # No arguments provided - prompt for values
+        print('💳 AI Credit Usage Checker\n')
+
+        # Prompt for renewal day
+        while True:
+            day_input = input('Enter your renewal day (1-31) [default: 1]: ').strip()
+            if not day_input:
+                target_day = 1
+                break
+            try:
+                target_day = int(day_input)
+                if not 1 <= target_day <= 31:
+                    print('  ⚠️  Please enter a day between 1 and 31')
+                    continue
+                break
+            except ValueError:
+                print('  ⚠️  Please enter a valid number')
+
+        # Prompt for percentage
+        while True:
+            pct_input = input('Enter your current credit usage percentage (0-100): ').strip()
+            if not pct_input:
+                print('  ⚠️  Percentage is required')
+                continue
+            try:
+                percentage = float(pct_input)
+                if percentage < 0:
+                    print('  ⚠️  Percentage cannot be negative')
+                    continue
+                break
+            except ValueError:
+                print('  ⚠️  Please enter a valid number')
+
+        print()  # Add blank line before output
+
+    elif len(sys.argv) == 2:
         # Single argument: treat as percentage, use default target_day
         try:
             percentage = float(sys.argv[1])
