@@ -1,6 +1,6 @@
 [project]
 name = "aiusage"
-version = "0.1.0"
+version = "0.1.1"
 description = "A smart command-line tool for tracking AI credit consumption across billing cycles"
 readme = "README.md"
 authors = [
