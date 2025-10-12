@@ -19,9 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Files: `src/aicheck/config.py`, `tests/test_config.py`
 
 ### Changed
+- **Refactored CLI to use Cyclopts framework** for better help text, type validation, and cleaner code
 - CLI now uses `importlib.metadata` to dynamically get version from `pyproject.toml`
 - Interactive mode offers to change saved renewal day if one exists
 - Single-argument mode now uses saved renewal day if available
+- Commands can be called with or without subcommand name (`aicheck 35` or `aicheck check 35`)
 - Files: `src/aicheck/cli.py`, `src/aicheck/__init__.py`, `pyproject.toml`
 
 ### Deprecated

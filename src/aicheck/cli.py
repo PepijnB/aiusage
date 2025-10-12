@@ -2,8 +2,10 @@
 Command-line interface for AI credit usage analysis.
 """
 
-import sys
 from datetime import datetime
+from typing import Annotated, Optional
+
+import cyclopts
 
 from aicheck import __version__
 from aicheck import config as config_module
@@ -19,139 +21,15 @@ class Colors:
     BOLD = '\033[1m'
 
 
-def main():
-    """Main entry point for the CLI."""
-    # Handle --version flag
-    if len(sys.argv) == 2 and sys.argv[1] in ('--version', '-v'):
-        print(f'aicheck version {__version__}')
-        sys.exit(0)
+app = cyclopts.App(
+    name='aicheck',
+    help='Track AI credit usage across billing cycles and avoid overages.',
+    version=__version__,
+)
 
-    # Handle --reset-renewal-day flag
-    if len(sys.argv) == 2 and sys.argv[1] == '--reset-renewal-day':
-        print('🔄 Reset Renewal Day\n')
 
-        # Show current saved value if exists
-        saved_day = config_module.load_renewal_day()
-        if saved_day:
-            print(f'Current saved renewal day: {saved_day}')
-        else:
-            print('No renewal day currently saved.')
-
-        # Prompt for new value
-        while True:
-            day_input = input('\nEnter new renewal day (1-31): ').strip()
-            if not day_input:
-                print('❌ Cancelled - no changes made')
-                sys.exit(0)
-            try:
-                new_day = int(day_input)
-                if not 1 <= new_day <= 31:
-                    print('  ⚠️  Please enter a day between 1 and 31')
-                    continue
-                break
-            except ValueError:
-                print('  ⚠️  Please enter a valid number')
-
-        # Save the new value
-        config_module.save_renewal_day(new_day)
-        print(f'✓ Renewal day saved: {new_day}')
-        sys.exit(0)
-
-    target_day = 1
-    percentage = None
-
-    # Parse arguments - flexible order
-    if len(sys.argv) < 2:
-        # No arguments provided - prompt for values
-        print('💳 AI Credit Usage Checker\n')
-
-        # Try to load saved renewal day
-        saved_day = config_module.load_renewal_day()
-        if saved_day:
-            # Use saved value silently
-            target_day = saved_day
-            print(f'Using saved renewal day: {target_day}\n')
-        else:
-            # No saved value - prompt for renewal day
-            while True:
-                day_input = input('Enter your renewal day (1-31) [default: 1]: ').strip()
-                if not day_input:
-                    target_day = 1
-                    break
-                try:
-                    target_day = int(day_input)
-                    if not 1 <= target_day <= 31:
-                        print('  ⚠️  Please enter a day between 1 and 31')
-                        continue
-                    break
-                except ValueError:
-                    print('  ⚠️  Please enter a valid number')
-
-            # Ask if they want to save it
-            if target_day != 1:  # Only ask if they changed from default
-                save_input = input('Save this renewal day for future use? (Y/n): ').strip().lower()
-                if save_input != 'n':
-                    config_module.save_renewal_day(target_day)
-                    print('✓ Renewal day saved')
-            print()
-
-        # Prompt for percentage
-        while True:
-            pct_input = input('Enter your current credit usage percentage (0-100): ').strip()
-            if not pct_input:
-                print('  ⚠️  Percentage is required')
-                continue
-            try:
-                percentage = float(pct_input)
-                if percentage < 0:
-                    print('  ⚠️  Percentage cannot be negative')
-                    continue
-                break
-            except ValueError:
-                print('  ⚠️  Please enter a valid number')
-
-        print()  # Add blank line before output
-
-    elif len(sys.argv) == 2:
-        # Single argument: treat as percentage, use saved or default target_day
-        try:
-            percentage = float(sys.argv[1])
-            # Try to load saved renewal day
-            saved_day = config_module.load_renewal_day()
-            if saved_day:
-                target_day = saved_day
-        except ValueError:
-            print(f"Error: '{sys.argv[1]}' is not a valid percentage")
-            sys.exit(1)
-    elif len(sys.argv) >= 3:
-        # Two arguments: determine which is which
-        # If first arg is <= 31 and second is a larger number, assume day then percentage
-        # Otherwise, assume percentage then day (old format)
-        try:
-            arg1 = float(sys.argv[1])
-            arg2 = float(sys.argv[2])
-
-            # Smart detection: if first arg is 1-31 and second is larger, it's likely day then percentage
-            if 1 <= arg1 <= 31 and arg2 > 31:
-                target_day = int(arg1)
-                percentage = arg2
-            # If first arg is > 31, it's definitely percentage first
-            elif arg1 > 31:
-                percentage = arg1
-                target_day = int(arg2)
-            # If both are <= 31, prefer day first (new format)
-            else:
-                target_day = int(arg1)
-                percentage = arg2
-
-        except ValueError as e:
-            print(f'Error: Invalid arguments - {e}')
-            sys.exit(1)
-
-    if percentage is None:
-        print('Error: Could not determine percentage')
-        sys.exit(1)
-
+def display_analysis(percentage: float, target_day: int) -> None:
+    """Display the credit usage analysis."""
     result = calculate_progress(percentage, target_day=target_day)
 
     print(f'\n💳 Credit Usage Analysis (v{__version__})')
@@ -205,6 +83,134 @@ def main():
         print(f"   {Colors.YELLOW}You'll use exactly 100% by day {result['target_day']}.{Colors.RESET}")
 
     print()
+
+
+def prompt_for_renewal_day(saved_day: Optional[int] = None) -> int:
+    """Prompt user for renewal day."""
+    if saved_day:
+        print(f'Using saved renewal day: {saved_day}\n')
+        return saved_day
+
+    while True:
+        day_input = input('Enter your renewal day (1-31) [default: 1]: ').strip()
+        if not day_input:
+            return 1
+        try:
+            day = int(day_input)
+            if not 1 <= day <= 31:
+                print('  ⚠️  Please enter a day between 1 and 31')
+                continue
+            # Ask if they want to save it
+            if day != 1:
+                save_input = input('Save this renewal day for future use? (Y/n): ').strip().lower()
+                if save_input != 'n':
+                    config_module.save_renewal_day(day)
+                    print('✓ Renewal day saved')
+            return day
+        except ValueError:
+            print('  ⚠️  Please enter a valid number')
+
+
+def prompt_for_percentage() -> float:
+    """Prompt user for percentage."""
+    while True:
+        pct_input = input('Enter your current credit usage percentage (0-100): ').strip()
+        if not pct_input:
+            print('  ⚠️  Percentage is required')
+            continue
+        try:
+            percentage = float(pct_input)
+            if percentage < 0:
+                print('  ⚠️  Percentage cannot be negative')
+                continue
+            return percentage
+        except ValueError:
+            print('  ⚠️  Please enter a valid number')
+
+
+@app.default
+def check(
+    percentage: Annotated[
+        Optional[float],
+        cyclopts.Parameter(
+            show_default=False,
+            help='Current credit usage percentage (0-100). If omitted, will prompt interactively.',
+        ),
+    ] = None,
+    renewal_day: Annotated[
+        Optional[int],
+        cyclopts.Parameter(
+            show_default=False,
+            help='Day of month when credits renew (1-31). Uses saved value or prompts if omitted.',
+        ),
+    ] = None,
+) -> None:
+    """
+    Check AI credit usage and compare against billing cycle progress.
+
+    Examples:
+        aicheck 35              # Check 35% usage, use saved/default renewal day
+        aicheck 35 15           # Check 35% usage with renewal on the 15th
+        aicheck --percentage 35 --renewal-day 15
+        aicheck                 # Interactive mode
+    """
+    # Interactive mode if no percentage provided
+    if percentage is None:
+        print('💳 AI Credit Usage Checker\n')
+        saved_day = config_module.load_renewal_day()
+        target_day = renewal_day if renewal_day is not None else prompt_for_renewal_day(saved_day)
+        percentage = prompt_for_percentage()
+        print()
+    else:
+        # If renewal_day not provided, try to load saved value
+        if renewal_day is None:
+            saved_day = config_module.load_renewal_day()
+            target_day = saved_day if saved_day else 1
+        else:
+            target_day = renewal_day
+
+    display_analysis(percentage, target_day)
+
+
+@app.command
+def reset_renewal_day() -> None:
+    """
+    Reset the saved renewal day configuration.
+
+    Interactively update the renewal day that's stored for future use.
+    """
+    print('🔄 Reset Renewal Day\n')
+
+    # Show current saved value if exists
+    saved_day = config_module.load_renewal_day()
+    if saved_day:
+        print(f'Current saved renewal day: {saved_day}')
+    else:
+        print('No renewal day currently saved.')
+
+    # Prompt for new value
+    while True:
+        day_input = input('\nEnter new renewal day (1-31): ').strip()
+        if not day_input:
+            print('❌ Cancelled - no changes made')
+            return
+        try:
+            new_day = int(day_input)
+            if not 1 <= new_day <= 31:
+                print('  ⚠️  Please enter a day between 1 and 31')
+                continue
+            break
+        except ValueError:
+            print('  ⚠️  Please enter a valid number')
+
+    # Save the new value
+    config_module.save_renewal_day(new_day)
+    print(f'✓ Renewal day saved: {new_day}')
+
+
+def main() -> None:
+    """Main entry point for the CLI."""
+    app()
 
 
 if __name__ == '__main__':

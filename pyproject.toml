@@ -7,7 +7,7 @@ authors = [
     { name = "Michael Kennedy", email = "mikeckennedy@gmail.com" }
 ]
 requires-python = ">=3.13"
-dependencies = ["platformdirs>=4.0.0"]
+dependencies = ["platformdirs>=4.0.0", "cyclopts>=3.0.0"]
 license = {text = "MIT"}
 keywords = ["ai", "credits", "usage", "tracking", "cursor", "copilot"]
 classifiers = [
