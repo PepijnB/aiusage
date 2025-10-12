@@ -1,0 +1,62 @@
+{
+  "include": [
+    "src",
+    "tests"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    ".venv",
+    "venv",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "dist",
+    "build"
+  ],
+  "stubPath": "typings",
+  "venvPath": ".",
+  "venv": "venv",
+  "pythonVersion": "3.13",
+  "pythonPlatform": "Darwin",
+  "typeCheckingMode": "strict",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "reportUnusedImport": "warning",
+  "reportUnusedVariable": "warning",
+  "reportDuplicateImport": "warning",
+  "reportPrivateUsage": "warning",
+  "reportConstantRedefinition": "error",
+  "reportIncompatibleMethodOverride": "error",
+  "reportIncompatibleVariableOverride": "error",
+  "reportUntypedFunctionDecorator": "warning",
+  "reportUntypedClassDecorator": "warning",
+  "reportUntypedBaseClass": "error",
+  "reportUntypedNamedTuple": "warning",
+  "reportCallInDefaultInitializer": "warning",
+  "reportUnnecessaryIsInstance": "warning",
+  "reportUnnecessaryCast": "warning",
+  "reportImplicitStringConcatenation": "warning",
+  "reportUnusedCallResult": false,
+  "reportUnusedExpression": "warning",
+  "reportMatchNotExhaustive": "warning",
+  "reportShadowedImports": "warning",
+  "executionEnvironments": [
+    {
+      "root": "src",
+      "pythonVersion": "3.13",
+      "extraPaths": [
+        "src",
+        "typings"
+      ]
+    },
+    {
+      "root": "tests",
+      "pythonVersion": "3.13",
+      "extraPaths": [
+        "src",
+        "typings"
+      ]
+    }
+  ]
+}
+

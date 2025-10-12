@@ -167,7 +167,12 @@ cython_debug/
 /.idea/vcs.xml
 
 # Visual Studio Code
-.vscode/
+# Track settings and extensions, but not workspace-specific files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
 
 # Vim
 *.swp
@@ -196,5 +201,4 @@ $RECYCLE.BIN/
 
 venv
 .idea
-.vscode
 *.pyc

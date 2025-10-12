@@ -91,6 +91,21 @@ All runtime dependencies have inline type hints (marked with `py.typed`):
 - `rich` - Terminal formatting
 - `pytest` - Testing framework
 
+#### IDE Configuration
+
+The project includes configuration for VSCode/Cursor:
+- **`.vscode/settings.json`**: Configures Pylance, mypy, ruff, and pytest
+- **`.vscode/extensions.json`**: Recommends required extensions
+- **`pyrightconfig.json`**: Standalone Pyright/Pylance configuration
+- **`mypy.ini`**: mypy configuration (strict mode)
+- **`pyproject.toml`**: Contains `[tool.pyright]` section
+
+Both Pylance (VSCode's default) and mypy are configured to:
+- Use strict type checking mode
+- Search the `typings/` directory for custom stubs
+- Include `src/` in the Python path
+- Report comprehensive type errors
+
 ### Testing the CLI
 
 After installing in editable mode, you can test the CLI:
