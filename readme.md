@@ -86,7 +86,7 @@ uv pip install aicheck
 ### From Source
 
 ```bash
-git clone https://github.com/yourusername/ai-usage-summary.git
+git clone https://github.com/mikeckennedy/ai-usage-summary.git
 cd ai-usage-summary/aicheck
 uv pip install -e .
 ```

@@ -21,8 +21,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/ai-usage-summary"
-Repository = "https://github.com/yourusername/ai-usage-summary"
+Homepage = "https://github.com/mikeckennedy/aicheck"
+Repository = "https://github.com/mikeckennedy/aicheck"
 
 [project.scripts]
 aicheck = "aicheck.cli:main"
