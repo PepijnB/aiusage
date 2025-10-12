@@ -1,4 +1,4 @@
-# AI Check TUI 💳
+# AI Usage 💳
 
 A smart command-line tool for tracking AI credit consumption across billing cycles. Designed for AI-powered development tools like Cursor, GitHub Copilot, and other subscription-based AI services.
 
@@ -80,14 +80,14 @@ Renewal Day: 1st of the month
 ### From PyPI (when published)
 
 ```bash
-uv pip install aicheck
+uv pip install aiusage
 ```
 
 ### From Source
 
 ```bash
-git clone https://github.com/mikeckennedy/ai-usage-summary.git
-cd ai-usage-summary/aicheck
+git clone https://github.com/mikeckennedy/aiusage.git
+cd aiusage
 uv pip install -e .
 ```
 
@@ -96,8 +96,8 @@ uv pip install -e .
 ### Basic Usage
 
 ```bash
-aicheck 15 45  # Renewal on 15th, 45% used
-aicheck 25     # Default renewal day (1st), 25% used
+aiusage 15 45  # Renewal on 15th, 45% used
+aiusage 25     # Default renewal day (1st), 25% used
 ```
 
 ### Finding Your Current Usage
@@ -161,11 +161,11 @@ Built for developers who want to maximize their AI tool subscriptions without br
 
 ---
 
-**Pro Tip**: The package installs a `aicheck` command globally:
+**Pro Tip**: The package installs a `aiusage` command globally:
 ```bash
 # If your renewal day is the 15th of the month, and usage is 45%
-aicheck 15 45
+aiusage 15 45
 
 # Or use the default renewal day (1st)
-aicheck 25
+aiusage 25
 ``` 

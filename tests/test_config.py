@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 import pytest
 
-from aicheck import config as config_module
+from aiusage import config as config_module
 
 
 @pytest.fixture(autouse=True)
@@ -40,7 +40,7 @@ def backup_and_restore_config():
 def test_get_config_file():
     """Test that get_config_file returns a valid path."""
     with tempfile.TemporaryDirectory() as tmpdir:
-        with patch('aicheck.config.user_config_dir', return_value=tmpdir):
+        with patch('aiusage.config.user_config_dir', return_value=tmpdir):
             config_file = config_module.get_config_file()
             assert isinstance(config_file, Path)
             assert config_file.name == 'config.json'
@@ -53,7 +53,7 @@ def test_save_and_load_renewal_day():
     with tempfile.TemporaryDirectory() as tmpdir:
         config_file = Path(tmpdir) / 'config.json'
 
-        with patch('aicheck.config.get_config_file', return_value=config_file):
+        with patch('aiusage.config.get_config_file', return_value=config_file):
             # Save a renewal day
             config_module.save_renewal_day(15)
 
@@ -72,7 +72,7 @@ def test_load_renewal_day_no_file():
     with tempfile.TemporaryDirectory() as tmpdir:
         config_file = Path(tmpdir) / 'nonexistent.json'
 
-        with patch('aicheck.config.get_config_file', return_value=config_file):
+        with patch('aiusage.config.get_config_file', return_value=config_file):
             loaded = config_module.load_renewal_day()
             assert loaded is None
 
@@ -83,7 +83,7 @@ def test_load_renewal_day_invalid_json():
         config_file = Path(tmpdir) / 'config.json'
         config_file.write_text('invalid json{')
 
-        with patch('aicheck.config.get_config_file', return_value=config_file):
+        with patch('aiusage.config.get_config_file', return_value=config_file):
             loaded = config_module.load_renewal_day()
             assert loaded is None
 
@@ -93,7 +93,7 @@ def test_save_renewal_day_preserves_other_config():
     with tempfile.TemporaryDirectory() as tmpdir:
         config_file = Path(tmpdir) / 'config.json'
 
-        with patch('aicheck.config.get_config_file', return_value=config_file):
+        with patch('aiusage.config.get_config_file', return_value=config_file):
             # Create a config with some other value
             config_file.write_text(json.dumps({'other_key': 'other_value'}))
 
@@ -113,7 +113,7 @@ def test_save_renewal_day_updates_existing():
     with tempfile.TemporaryDirectory() as tmpdir:
         config_file = Path(tmpdir) / 'config.json'
 
-        with patch('aicheck.config.get_config_file', return_value=config_file):
+        with patch('aiusage.config.get_config_file', return_value=config_file):
             # Save initial value
             config_module.save_renewal_day(10)
             assert config_module.load_renewal_day() == 10

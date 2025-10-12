@@ -1,12 +1,12 @@
 # Development Guide
 
-This guide covers development, testing, and publishing of the `aicheck` package.
+This guide covers development, testing, and publishing of the `aiusage` package.
 
 ## Package Structure
 
 ```
-aicheck/
-├── src/aicheck/           # Source code
+aiusage/
+├── src/aiusage/           # Source code
 │   ├── __init__.py       # Package initialization
 │   ├── core.py           # Core calculation logic
 │   ├── cli.py            # Command-line interface
@@ -26,7 +26,7 @@ aicheck/
 
 1. **Clone and navigate to the package**:
    ```bash
-   cd aicheck
+   cd aiusage
    ```
 
 2. **Install in editable mode with uv**:
@@ -49,38 +49,38 @@ pytest
 
 Run with coverage:
 ```bash
-pytest --cov=aicheck --cov-report=html
+pytest --cov=aiusage --cov-report=html
 ```
 
 ### Code Formatting
 
 Format code with ruff:
 ```bash
-ruff format src/aicheck/ tests/
+ruff format src/aiusage/ tests/
 ```
 
 ### Linting
 
 Check code quality:
 ```bash
-ruff check src/aicheck/ tests/
+ruff check src/aiusage/ tests/
 ```
 
 Auto-fix issues:
 ```bash
-ruff check --fix src/aicheck/ tests/
+ruff check --fix src/aiusage/ tests/
 ```
 
 ### Testing the CLI
 
 After installing in editable mode, you can test the CLI:
 ```bash
-aicheck 24 35
+aiusage 24 35
 ```
 
 Or with the Python module:
 ```bash
-python -m aicheck.cli 24 35
+python -m aiusage.cli 24 35
 ```
 
 ## Building the Package
@@ -91,8 +91,8 @@ uv build
 ```
 
 This creates:
-- `dist/aicheck-0.1.0.tar.gz` (source distribution)
-- `dist/aicheck-0.1.0-py3-none-any.whl` (wheel)
+- `dist/aiusage-0.1.0.tar.gz` (source distribution)
+- `dist/aiusage-0.1.0-py3-none-any.whl` (wheel)
 
 ## Publishing to PyPI
 
@@ -116,14 +116,14 @@ Update the version in `pyproject.toml`:
 version = "0.2.0"
 ```
 
-Also update in `src/aicheck/__init__.py`:
+Also update in `src/aiusage/__init__.py`:
 ```python
 __version__ = "0.2.0"
 ```
 
 ## Adding New Features
 
-1. Write the feature code in `src/aicheck/`
+1. Write the feature code in `src/aiusage/`
 2. Add tests in `tests/`
 3. Run tests and linting
 4. Update documentation in README.md
@@ -141,8 +141,8 @@ Development dependencies are listed in `requirements-development.piptools`:
 
 Before committing:
 - [ ] All tests pass: `pytest`
-- [ ] Code is formatted: `ruff format src/aicheck/ tests/`
-- [ ] No linting errors: `ruff check src/aicheck/ tests/`
+- [ ] Code is formatted: `ruff format src/aiusage/ tests/`
+- [ ] No linting errors: `ruff check src/aiusage/ tests/`
 - [ ] Documentation is updated
 - [ ] Version number is bumped (if applicable)
 
@@ -165,14 +165,14 @@ uv pip install -e .
 ### Tests Failing
 Make sure you're in the package directory:
 ```bash
-cd aicheck
+cd aiusage
 pytest
 ```
 
 ### CLI Not Found
 Reinstall the package:
 ```bash
-uv pip uninstall aicheck
+uv pip uninstall aiusage
 uv pip install -e .
 ```
 

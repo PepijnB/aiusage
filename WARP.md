@@ -2,7 +2,7 @@
 
 This file provides guidance to WARP (warp.dev) when working with code in this repository.
 
-**aicheck** is a smart command-line tool for tracking AI credit consumption across billing cycles. It helps developers avoid overages by comparing credit usage to time progress through renewal cycles, with color-coded feedback and usage projections.
+**aiusage** is a smart command-line tool for tracking AI credit consumption across billing cycles. It helps developers avoid overages by comparing credit usage to time progress through renewal cycles, with color-coded feedback and usage projections.
 
 ## Common Development Commands
 
@@ -23,7 +23,7 @@ uv pip install pytest ruff
 pytest
 
 # Run with coverage
-pytest --cov=aicheck --cov-report=html
+pytest --cov=aiusage --cov-report=html
 
 # Run specific test file
 pytest tests/test_core.py
@@ -36,25 +36,25 @@ pytest tests/test_core.py::test_calculate_progress_basic
 
 ```bash
 # Check code quality
-ruff check src/aicheck/ tests/
+ruff check src/aiusage/ tests/
 
 # Auto-fix issues and format code
-ruff check --fix src/aicheck/ tests/
-ruff format src/aicheck/ tests/
+ruff check --fix src/aiusage/ tests/
+ruff format src/aiusage/ tests/
 
 # Format only
-ruff format src/aicheck/ tests/
+ruff format src/aiusage/ tests/
 ```
 
 ### CLI Testing
 
 ```bash
 # Test the CLI after editable install
-aicheck 15 45  # Renewal on 15th, 45% used
-aicheck 25     # Default renewal (1st), 25% used
+aiusage 15 45  # Renewal on 15th, 45% used
+aiusage 25     # Default renewal (1st), 25% used
 
 # Or run via module
-python -m aicheck.cli 15 45
+python -m aiusage.cli 15 45
 ```
 
 ### Building and Publishing
@@ -77,7 +77,7 @@ uv publish
 The project follows a clean separation between core logic and CLI presentation:
 
 ```
-src/aicheck/
+src/aiusage/
 ├── __init__.py      # Package exports and version
 ├── core.py          # Pure calculation functions
 └── cli.py           # Command-line interface and output formatting
@@ -95,7 +95,7 @@ src/aicheck/
 - Argument parsing with flexible parameter order (day/percentage or percentage only)
 - ANSI color coding for visual feedback (green=conserving, red=warning)
 - Formatted output with emoji indicators and clear status messages
-- Entry point defined as `aicheck = aicheck.cli:main` in pyproject.toml
+- Entry point defined as `aiusage = aiusage.cli:main` in pyproject.toml
 
 ### Key Design Principles
 

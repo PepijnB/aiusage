@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from aicheck.core import calculate_progress, ordinal_suffix
+from aiusage.core import calculate_progress, ordinal_suffix
 
 
 def test_ordinal_suffix():

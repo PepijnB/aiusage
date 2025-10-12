@@ -7,9 +7,9 @@ from typing import Annotated, Optional
 
 import cyclopts
 
-from aicheck import __version__
-from aicheck import config as config_module
-from aicheck.core import calculate_progress, ordinal_suffix
+from aiusage import __version__
+from aiusage import config as config_module
+from aiusage.core import calculate_progress, ordinal_suffix
 
 
 # ANSI color codes
@@ -22,7 +22,7 @@ class Colors:
 
 
 app = cyclopts.App(
-    name='aicheck',
+    name='aiusage',
     help=f'💳 Track AI credit usage across billing cycles and avoid overages. (v{__version__})',
     version=__version__,
 )
@@ -155,11 +155,11 @@ def check(
     credit health: 🟢 conserving, 🟡 on track, or 🔴 overspending.
 
     [bold green]Examples:[/bold green]
-        aicheck 35                             # Positional: 35% usage, use saved renewal day
-        aicheck 35 15                          # Positional: 35% usage, renewal on 15th
-        aicheck --percent 35                   # Named (short form)
-        aicheck --percentage 35 --renewal-day 15  # Named (long form)
-        aicheck                                # Interactive mode (prompts for values)
+        aiusage 35                             # Positional: 35% usage, use saved renewal day
+        aiusage 35 15                          # Positional: 35% usage, renewal on 15th
+        aiusage --percent 35                   # Named (short form)
+        aiusage --percentage 35 --renewal-day 15  # Named (long form)
+        aiusage                                # Interactive mode (prompts for values)
     """
     # Interactive mode if no percentage provided
     if percentage is None:
@@ -189,7 +189,7 @@ def reset_renewal_day() -> None:
     specify the --renewal-day parameter.
 
     [bold green]Example:[/bold green]
-        aicheck reset-renewal-day    # Prompts to update saved renewal day
+        aiusage reset-renewal-day    # Prompts to update saved renewal day
     """
     print('🔄 Reset Renewal Day\n')
 

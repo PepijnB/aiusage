@@ -16,15 +16,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Version display in output header
 - New `config.py` module for configuration management
 - Comprehensive test coverage for configuration functionality
-- Files: `src/aicheck/config.py`, `tests/test_config.py`
+- Files: `src/aiusage/config.py`, `tests/test_config.py`
 
 ### Changed
 - **Refactored CLI to use Cyclopts framework** for better help text, type validation, and cleaner code
 - CLI now uses `importlib.metadata` to dynamically get version from `pyproject.toml`
 - Interactive mode offers to change saved renewal day if one exists
 - Single-argument mode now uses saved renewal day if available
-- Commands can be called with or without subcommand name (`aicheck 35` or `aicheck check 35`)
-- Files: `src/aicheck/cli.py`, `src/aicheck/__init__.py`, `pyproject.toml`
+- Commands can be called with or without subcommand name (`aiusage 35` or `aiusage check 35`)
+- Files: `src/aiusage/cli.py`, `src/aiusage/__init__.py`, `pyproject.toml`
 
 ### Deprecated
 - 

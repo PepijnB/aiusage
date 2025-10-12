@@ -1,5 +1,5 @@
 """
-Configuration management for aicheck.
+Configuration management for aiusage.
 Handles loading and saving user preferences like renewal day.
 """
 
@@ -15,9 +15,9 @@ def get_config_file() -> Path:
     Get the path to the config file.
 
     Returns:
-        Path to the aicheck config file in the user's config directory
+        Path to the aiusage config file in the user's config directory
     """
-    config_dir = Path(user_config_dir('aicheck', appauthor='aicheck'))
+    config_dir = Path(user_config_dir('aiusage', appauthor='aiusage'))
     config_dir.mkdir(parents=True, exist_ok=True)
     return config_dir / 'config.json'
 

@@ -1,5 +1,5 @@
 [project]
-name = "aicheck"
+name = "aiusage"
 version = "0.1.0"
 description = "A smart command-line tool for tracking AI credit consumption across billing cycles"
 readme = "README.md"
@@ -21,11 +21,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mikeckennedy/aicheck"
-Repository = "https://github.com/mikeckennedy/aicheck"
+Homepage = "https://github.com/mikeckennedy/aiusage"
+Repository = "https://github.com/mikeckennedy/aiusage"
 
 [project.scripts]
-aicheck = "aicheck.cli:main"
+aiusage = "aiusage.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.9.2,<0.10.0"]

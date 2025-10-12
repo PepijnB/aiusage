@@ -1,1 +1,1 @@
-"""Tests for aicheck package."""
+"""Tests for aiusage package."""
