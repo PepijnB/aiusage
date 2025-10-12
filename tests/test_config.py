@@ -3,20 +3,49 @@ Tests for configuration management.
 """
 
 import json
+import shutil
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
+
 from aicheck import config as config_module
+
+
+@pytest.fixture(autouse=True)
+def backup_and_restore_config():
+    """
+    Backup and restore the user's actual config file before and after tests.
+    This ensures tests never permanently modify the user's real config.
+    """
+    config_file = config_module.get_config_file()
+    backup_file = None
+
+    # Backup existing config if it exists
+    if config_file.exists():
+        backup_file = config_file.with_suffix('.json.backup')
+        shutil.copy2(config_file, backup_file)
+
+    yield
+
+    # Restore the backup after tests
+    if backup_file and backup_file.exists():
+        shutil.move(backup_file, config_file)
+    elif config_file.exists() and not backup_file:
+        # Config was created by tests but didn't exist before - remove it
+        config_file.unlink()
 
 
 def test_get_config_file():
     """Test that get_config_file returns a valid path."""
-    config_file = config_module.get_config_file()
-    assert isinstance(config_file, Path)
-    assert config_file.name == 'config.json'
-    # Config directory should be created
-    assert config_file.parent.exists()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        with patch('aicheck.config.user_config_dir', return_value=tmpdir):
+            config_file = config_module.get_config_file()
+            assert isinstance(config_file, Path)
+            assert config_file.name == 'config.json'
+            # Config directory should be created
+            assert config_file.parent.exists()
 
 
 def test_save_and_load_renewal_day():
