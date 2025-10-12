@@ -135,7 +135,7 @@ def check(
         cyclopts.Parameter(
             name=['--percentage', '--percent'],
             show_default=False,
-            help='Current credit usage percentage (0-100). If omitted, will prompt interactively.',
+            help='📊 Current credit usage percentage (0-100). If omitted, will prompt interactively.',
         ),
     ] = None,
     renewal_day: Annotated[
@@ -143,19 +143,23 @@ def check(
         cyclopts.Parameter(
             name='--renewal-day',
             show_default=False,
-            help='Day of month when credits renew (1-31). Uses saved value or prompts if omitted.',
+            help='📅 Day of month when credits renew (1-31). Uses saved value or prompts if omitted.',
         ),
     ] = None,
 ) -> None:
     """
-    Check AI credit usage and compare against billing cycle progress.
+    🔍 Check AI credit usage and compare against billing cycle progress.
 
-    Examples:
+    Analyzes your current credit consumption rate and projects whether you'll
+    stay within budget before the next renewal. Shows visual indicators for
+    credit health: 🟢 conserving, 🟡 on track, or 🔴 overspending.
+
+    [bold green]Examples:[/bold green]
         aicheck 35                             # Positional: 35% usage, use saved renewal day
         aicheck 35 15                          # Positional: 35% usage, renewal on 15th
         aicheck --percent 35                   # Named (short form)
         aicheck --percentage 35 --renewal-day 15  # Named (long form)
-        aicheck                                # Interactive mode
+        aicheck                                # Interactive mode (prompts for values)
     """
     # Interactive mode if no percentage provided
     if percentage is None:
@@ -178,9 +182,14 @@ def check(
 @app.command
 def reset_renewal_day() -> None:
     """
-    Reset the saved renewal day configuration.
+    🔄 Reset the saved renewal day configuration.
 
-    Interactively update the renewal day that's stored for future use.
+    Interactively update the renewal day that's stored in your user config.
+    This value will be automatically used in future checks when you don't
+    specify the --renewal-day parameter.
+
+    [bold green]Example:[/bold green]
+        aicheck reset-renewal-day    # Prompts to update saved renewal day
     """
     print('🔄 Reset Renewal Day\n')
 
