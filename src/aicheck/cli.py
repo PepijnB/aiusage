@@ -23,7 +23,7 @@ class Colors:
 
 app = cyclopts.App(
     name='aicheck',
-    help='Track AI credit usage across billing cycles and avoid overages.',
+    help='💳 Track AI credit usage across billing cycles and avoid overages.',
     version=__version__,
 )
 
@@ -133,6 +133,7 @@ def check(
     percentage: Annotated[
         Optional[float],
         cyclopts.Parameter(
+            name=['--percentage', '--percent'],
             show_default=False,
             help='Current credit usage percentage (0-100). If omitted, will prompt interactively.',
         ),
@@ -140,6 +141,7 @@ def check(
     renewal_day: Annotated[
         Optional[int],
         cyclopts.Parameter(
+            name='--renewal-day',
             show_default=False,
             help='Day of month when credits renew (1-31). Uses saved value or prompts if omitted.',
         ),
@@ -149,10 +151,11 @@ def check(
     Check AI credit usage and compare against billing cycle progress.
 
     Examples:
-        aicheck 35              # Check 35% usage, use saved/default renewal day
-        aicheck 35 15           # Check 35% usage with renewal on the 15th
-        aicheck --percentage 35 --renewal-day 15
-        aicheck                 # Interactive mode
+        aicheck 35                             # Positional: 35% usage, use saved renewal day
+        aicheck 35 15                          # Positional: 35% usage, renewal on 15th
+        aicheck --percent 35                   # Named (short form)
+        aicheck --percentage 35 --renewal-day 15  # Named (long form)
+        aicheck                                # Interactive mode
     """
     # Interactive mode if no percentage provided
     if percentage is None:
