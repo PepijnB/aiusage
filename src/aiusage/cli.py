@@ -146,6 +146,13 @@ def check(
             help='📅 Day of month when credits renew (1-31). Uses saved value or prompts if omitted.',
         ),
     ] = None,
+    reset_renewal_day: Annotated[
+        bool,
+        cyclopts.Parameter(
+            name='--reset-renewal-day',
+            help='🔄 Reset the saved renewal day configuration.',
+        ),
+    ] = False,
 ) -> None:
     """
     🔍 Check AI credit usage and compare against billing cycle progress.
@@ -160,7 +167,39 @@ def check(
         aiusage --percent 35                   # Named (short form)
         aiusage --percentage 35 --renewal-day 15  # Named (long form)
         aiusage                                # Interactive mode (prompts for values)
+        aiusage --reset-renewal-day            # Reset saved renewal day
     """
+    # Handle reset renewal day flag
+    if reset_renewal_day:
+        print('🔄 Reset Renewal Day\n')
+
+        # Show current saved value if exists
+        saved_day = config_module.load_renewal_day()
+        if saved_day:
+            print(f'Current saved renewal day: {saved_day}')
+        else:
+            print('No renewal day currently saved.')
+
+        # Prompt for new value
+        while True:
+            day_input = input('\nEnter new renewal day (1-31): ').strip()
+            if not day_input:
+                print('❌ Cancelled - no changes made')
+                return
+            try:
+                new_day = int(day_input)
+                if not 1 <= new_day <= 31:
+                    print('  ⚠️  Please enter a day between 1 and 31')
+                    continue
+                break
+            except ValueError:
+                print('  ⚠️  Please enter a valid number')
+
+        # Save the new value
+        config_module.save_renewal_day(new_day)
+        print(f'✓ Renewal day saved: {new_day}')
+        return
+
     # Interactive mode if no percentage provided
     if percentage is None:
         print('💳 AI Credit Usage Checker\n')
@@ -177,47 +216,6 @@ def check(
             target_day = renewal_day
 
     display_analysis(percentage, target_day)
-
-
-@app.command
-def reset_renewal_day() -> None:
-    """
-    🔄 Reset the saved renewal day configuration.
-
-    Interactively update the renewal day that's stored in your user config.
-    This value will be automatically used in future checks when you don't
-    specify the --renewal-day parameter.
-
-    [bold green]Example:[/bold green]
-        aiusage reset-renewal-day    # Prompts to update saved renewal day
-    """
-    print('🔄 Reset Renewal Day\n')
-
-    # Show current saved value if exists
-    saved_day = config_module.load_renewal_day()
-    if saved_day:
-        print(f'Current saved renewal day: {saved_day}')
-    else:
-        print('No renewal day currently saved.')
-
-    # Prompt for new value
-    while True:
-        day_input = input('\nEnter new renewal day (1-31): ').strip()
-        if not day_input:
-            print('❌ Cancelled - no changes made')
-            return
-        try:
-            new_day = int(day_input)
-            if not 1 <= new_day <= 31:
-                print('  ⚠️  Please enter a day between 1 and 31')
-                continue
-            break
-        except ValueError:
-            print('  ⚠️  Please enter a valid number')
-
-    # Save the new value
-    config_module.save_renewal_day(new_day)
-    print(f'✓ Renewal day saved: {new_day}')
 
 
 def main() -> None:
