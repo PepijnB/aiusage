@@ -26,6 +26,37 @@ def main():
         print(f'aicheck version {__version__}')
         sys.exit(0)
 
+    # Handle --reset-renewal-day flag
+    if len(sys.argv) == 2 and sys.argv[1] == '--reset-renewal-day':
+        print('🔄 Reset Renewal Day\n')
+
+        # Show current saved value if exists
+        saved_day = config_module.load_renewal_day()
+        if saved_day:
+            print(f'Current saved renewal day: {saved_day}')
+        else:
+            print('No renewal day currently saved.')
+
+        # Prompt for new value
+        while True:
+            day_input = input('\nEnter new renewal day (1-31): ').strip()
+            if not day_input:
+                print('❌ Cancelled - no changes made')
+                sys.exit(0)
+            try:
+                new_day = int(day_input)
+                if not 1 <= new_day <= 31:
+                    print('  ⚠️  Please enter a day between 1 and 31')
+                    continue
+                break
+            except ValueError:
+                print('  ⚠️  Please enter a valid number')
+
+        # Save the new value
+        config_module.save_renewal_day(new_day)
+        print(f'✓ Renewal day saved: {new_day}')
+        sys.exit(0)
+
     target_day = 1
     percentage = None
 
