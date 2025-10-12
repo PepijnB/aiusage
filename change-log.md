@@ -3,28 +3,15 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+and this project adheres to [Calendar Versioning](https://calver.org/) (YYYY.MM.DD format).
 
 ## [Unreleased]
 
 ### Added
-- Persistent configuration storage using `platformdirs` for platform-appropriate user config directory
-- Interactive prompts for renewal day and percentage when no command-line arguments provided
-- Ability to save renewal day for future use with opt-in confirmation
-- Automatic loading of saved renewal day when running with only percentage argument
-- `--version` and `-v` flags to display current version
-- Version display in output header
-- New `config.py` module for configuration management
-- Comprehensive test coverage for configuration functionality
-- Files: `src/aiusage/config.py`, `tests/test_config.py`
+- 
 
 ### Changed
-- **Refactored CLI to use Cyclopts framework** for better help text, type validation, and cleaner code
-- CLI now uses `importlib.metadata` to dynamically get version from `pyproject.toml`
-- Interactive mode offers to change saved renewal day if one exists
-- Single-argument mode now uses saved renewal day if available
-- Commands can be called with or without subcommand name (`aiusage 35` or `aiusage check 35`)
-- Files: `src/aiusage/cli.py`, `src/aiusage/__init__.py`, `pyproject.toml`
+- 
 
 ### Deprecated
 - 
@@ -37,6 +24,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 -
+
+---
+
+## [2025.10.12] - 2025-10-12
+
+**Initial Release** 🎉
+
+A smart command-line tool for tracking AI credit consumption across billing cycles. Designed for AI-powered development tools like Cursor, GitHub Copilot, and other subscription-based AI services.
+
+### Added
+- Real-time usage analysis comparing credit usage against billing cycle progress
+- Color-coded feedback (green for conserving, red for warnings)
+- Smart projections predicting remaining credits at renewal
+- Flexible billing cycle support for any renewal day of the month
+- Persistent configuration storage using `platformdirs` for platform-appropriate user config directory
+- Interactive prompts for renewal day and percentage when no command-line arguments provided
+- Ability to save renewal day for future use with opt-in confirmation
+- Automatic loading of saved renewal day when running with only percentage argument
+- `--version` and `-v` flags to display current version
+- Version display in output header
+- Privacy-first design: no web services, no logins, no data collection—runs entirely offline
+- Comprehensive test coverage for configuration and core functionality
+- Files: `src/aiusage/cli.py`, `src/aiusage/config.py`, `src/aiusage/core.py`, `tests/test_config.py`, `tests/test_core.py`
+
+### Notes
+- Minimal dependencies: only platformdirs and cyclopts required
+- Python 3.13+ required for modern type hints
+- Works on macOS, Linux, and Windows
 
 ---
 
