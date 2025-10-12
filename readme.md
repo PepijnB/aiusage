@@ -17,7 +17,7 @@ Managing AI credits effectively can save you money and frustration:
 
 ![](https://raw.githubusercontent.com/mikeckennedy/aiusage/main/readme_resources/cursor-progress.webp)
 
-Yes it might! But that's only half the story. At your current rate, will you still have creates to spare at the end of the period? How much? Are you going over? 
+Yes it might! But that's only half the story. At your current rate, will you still have credits to spare at the end of the period? How much? Are you going over? 
 
 If you have a bunch extra, you can switch to a smarter model or tackle a huge upcoming feature / project sooner rather than later. And visa versa if you're going to be over.
 
