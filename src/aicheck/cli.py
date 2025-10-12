@@ -5,6 +5,7 @@ Command-line interface for AI credit usage analysis.
 import sys
 from datetime import datetime
 
+from aicheck import __version__
 from aicheck.core import calculate_progress, ordinal_suffix
 
 
@@ -19,6 +20,11 @@ class Colors:
 
 def main():
     """Main entry point for the CLI."""
+    # Handle --version flag
+    if len(sys.argv) == 2 and sys.argv[1] in ('--version', '-v'):
+        print(f'aicheck version {__version__}')
+        sys.exit(0)
+
     target_day = 1
     percentage = None
 
@@ -97,7 +103,7 @@ def main():
 
     result = calculate_progress(percentage, target_day=target_day)
 
-    print('\n💳 Credit Usage Analysis')
+    print(f'\n💳 Credit Usage Analysis (v{__version__})')
     print(f'{"=" * 50}')
     print(f'Current Date: {datetime.now().strftime("%Y-%m-%d")}')
     print(f'Billing Cycle: Day {result["days_since_renewal"]} of {result["days_in_billing_cycle"]}')
