@@ -6,6 +6,7 @@ import sys
 from datetime import datetime
 
 from aicheck import __version__
+from aicheck import config as config_module
 from aicheck.core import calculate_progress, ordinal_suffix
 
 
@@ -33,20 +34,35 @@ def main():
         # No arguments provided - prompt for values
         print('💳 AI Credit Usage Checker\n')
 
-        # Prompt for renewal day
-        while True:
-            day_input = input('Enter your renewal day (1-31) [default: 1]: ').strip()
-            if not day_input:
-                target_day = 1
-                break
-            try:
-                target_day = int(day_input)
-                if not 1 <= target_day <= 31:
-                    print('  ⚠️  Please enter a day between 1 and 31')
-                    continue
-                break
-            except ValueError:
-                print('  ⚠️  Please enter a valid number')
+        # Try to load saved renewal day
+        saved_day = config_module.load_renewal_day()
+        if saved_day:
+            # Use saved value silently
+            target_day = saved_day
+            print(f'Using saved renewal day: {target_day}\n')
+        else:
+            # No saved value - prompt for renewal day
+            while True:
+                day_input = input('Enter your renewal day (1-31) [default: 1]: ').strip()
+                if not day_input:
+                    target_day = 1
+                    break
+                try:
+                    target_day = int(day_input)
+                    if not 1 <= target_day <= 31:
+                        print('  ⚠️  Please enter a day between 1 and 31')
+                        continue
+                    break
+                except ValueError:
+                    print('  ⚠️  Please enter a valid number')
+
+            # Ask if they want to save it
+            if target_day != 1:  # Only ask if they changed from default
+                save_input = input('Save this renewal day for future use? (Y/n): ').strip().lower()
+                if save_input != 'n':
+                    config_module.save_renewal_day(target_day)
+                    print('✓ Renewal day saved')
+            print()
 
         # Prompt for percentage
         while True:
@@ -66,9 +82,13 @@ def main():
         print()  # Add blank line before output
 
     elif len(sys.argv) == 2:
-        # Single argument: treat as percentage, use default target_day
+        # Single argument: treat as percentage, use saved or default target_day
         try:
             percentage = float(sys.argv[1])
+            # Try to load saved renewal day
+            saved_day = config_module.load_renewal_day()
+            if saved_day:
+                target_day = saved_day
         except ValueError:
             print(f"Error: '{sys.argv[1]}' is not a valid percentage")
             sys.exit(1)

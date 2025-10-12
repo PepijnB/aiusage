@@ -8,10 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- 
+- Persistent configuration storage using `platformdirs` for platform-appropriate user config directory
+- Interactive prompts for renewal day and percentage when no command-line arguments provided
+- Ability to save renewal day for future use with opt-in confirmation
+- Automatic loading of saved renewal day when running with only percentage argument
+- `--version` and `-v` flags to display current version
+- Version display in output header
+- New `config.py` module for configuration management
+- Comprehensive test coverage for configuration functionality
+- Files: `src/aicheck/config.py`, `tests/test_config.py`
 
 ### Changed
-- 
+- CLI now uses `importlib.metadata` to dynamically get version from `pyproject.toml`
+- Interactive mode offers to change saved renewal day if one exists
+- Single-argument mode now uses saved renewal day if available
+- Files: `src/aicheck/cli.py`, `src/aicheck/__init__.py`, `pyproject.toml`
 
 ### Deprecated
 - 
@@ -23,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 
 
 ### Security
-- 
+-
 
 ---
 
