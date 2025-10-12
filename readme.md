@@ -106,9 +106,9 @@ aiusage 25     # Default renewal day (1st), 25% used
 
 **For Cursor:**
 1. Open Cursor Settings
-2. Navigate to your subscription/usage page
-3. Look for "Usage this billing period" or similar
-4. Use the percentage shown
+2. Search for setting "Usage Summary"
+3. Set to "Always"
+4. The percentage is shown at the bottom of the AI chat box
 
 **For GitHub Copilot:**
 - Check your GitHub billing page for usage metrics
