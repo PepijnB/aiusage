@@ -97,7 +97,7 @@ uv pip install -e .
 
 ```bash
 aicheck 15 45  # Renewal on 15th, 45% used
-aicheck 25     # Default renewal day (24th), 25% used
+aicheck 25     # Default renewal day (1st), 25% used
 ```
 
 ### Finding Your Current Usage
@@ -166,6 +166,6 @@ Built for developers who want to maximize their AI tool subscriptions without br
 # If your renewal day is the 15th of the month, and usage is 45%
 aicheck 15 45
 
-# Or use the default renewal day (24th)
-aicheck 15
+# Or use the default renewal day (1st)
+aicheck 25
 ``` 

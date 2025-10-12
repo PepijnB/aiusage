@@ -22,11 +22,11 @@ def main():
     if len(sys.argv) < 2:
         print('Usage: aicheck <target_day> <percentage>')
         print('   or: aicheck <percentage>')
-        print('Example: aicheck 24 25')
+        print('Example: aicheck 15 25')
         print('Example: aicheck 25')
         sys.exit(1)
 
-    target_day = 24
+    target_day = 1
     percentage = None
 
     # Parse arguments - flexible order

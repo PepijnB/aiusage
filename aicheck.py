@@ -44,7 +44,7 @@ def ordinal_suffix(day: int) -> str:
 def calculate_progress(
     current_percentage: float,
     current_date: datetime | None = None,
-    target_day: int = 24,
+    target_day: int = 1,
 ) -> dict[str, float]:
     """
     Calculate if you're using credits faster or slower than expected.
@@ -52,7 +52,7 @@ def calculate_progress(
     Args:
         current_percentage: Your current credit usage percentage (e.g., 25 for 25%)
         current_date: The date to calculate from (defaults to today)
-        target_day: The renewal day of the month (defaults to 24)
+        target_day: The renewal day of the month (defaults to 1)
 
     Returns:
         Dictionary with progress metrics
