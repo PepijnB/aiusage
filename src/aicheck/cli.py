@@ -23,7 +23,7 @@ class Colors:
 
 app = cyclopts.App(
     name='aicheck',
-    help='💳 Track AI credit usage across billing cycles and avoid overages.',
+    help=f'💳 Track AI credit usage across billing cycles and avoid overages. (v{__version__})',
     version=__version__,
 )
 
