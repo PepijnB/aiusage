@@ -6,6 +6,25 @@ Default target day is the 1st of each month (renewal date).
 """
 
 from datetime import datetime, timedelta
+from typing import TypedDict
+
+
+class ProgressResult(TypedDict):
+    """Result of progress calculation."""
+
+    current_percentage: float
+    current_day: int
+    target_day: int
+    days_in_month: int
+    days_since_renewal: int
+    days_in_billing_cycle: int
+    time_progress: float
+    expected_percentage: float
+    ratio: float
+    difference_percentage: float
+    projected_usage: float
+    projected_remaining: float
+    status: str
 
 
 def ordinal_suffix(day: int) -> str:
@@ -31,7 +50,7 @@ def calculate_progress(
     current_percentage: float,
     current_date: datetime | None = None,
     target_day: int = 1,
-) -> dict[str, float]:
+) -> ProgressResult:
     """
     Calculate if you're using credits faster or slower than expected.
 

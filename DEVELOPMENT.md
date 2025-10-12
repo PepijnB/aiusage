@@ -71,6 +71,26 @@ Auto-fix issues:
 ruff check --fix src/aiusage/ tests/
 ```
 
+### Type Checking
+
+Run mypy for comprehensive type checking:
+```bash
+mypy -p aiusage
+```
+
+The project uses strict type checking with:
+- Type hints on all functions
+- TypedDict for structured return types
+- Proper type narrowing for JSON parsing
+- Custom type stubs in `typings/` directory (if needed)
+
+All runtime dependencies have inline type hints (marked with `py.typed`):
+- `cyclopts` - CLI framework
+- `platformdirs` - Cross-platform config directories
+- `attrs` - Classes without boilerplate
+- `rich` - Terminal formatting
+- `pytest` - Testing framework
+
 ### Testing the CLI
 
 After installing in editable mode, you can test the CLI:
@@ -131,11 +151,20 @@ __version__ = "0.2.0"
 
 ## Dependencies
 
-The package has **zero runtime dependencies** - keep it that way!
+### Runtime Dependencies
 
-Development dependencies are listed in `requirements-development.piptools`:
-- pytest: Testing framework
-- ruff: Linting and formatting
+The package has minimal runtime dependencies:
+- `platformdirs>=4.0.0` - Cross-platform config directory management
+- `cyclopts>=3.0.0` - Modern CLI framework with type hints
+
+All dependencies include inline type hints (PEP 561 compliant with `py.typed` markers).
+
+### Development Dependencies
+
+Development dependencies are listed in `requirements-development.piptools` and `pyproject.toml`:
+- **Testing**: `pytest`, `pytest-cov`, `pytest-clarity`
+- **Code Quality**: `ruff` (linting and formatting), `mypy` (type checking)
+- **AI Tools**: `pyrefly` (AI-powered code analysis and refactoring)
 
 ## Pre-commit Checklist
 
@@ -143,6 +172,7 @@ Before committing:
 - [ ] All tests pass: `pytest`
 - [ ] Code is formatted: `ruff format src/aiusage/ tests/`
 - [ ] No linting errors: `ruff check src/aiusage/ tests/`
+- [ ] Type checking passes: `mypy -p aiusage`
 - [ ] Documentation is updated
 - [ ] Version number is bumped (if applicable)
 

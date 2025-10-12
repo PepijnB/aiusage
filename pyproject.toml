@@ -27,6 +27,16 @@ Repository = "https://github.com/mikeckennedy/aiusage"
 [project.scripts]
 aiusage = "aiusage.cli:main"
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=6.0.0",
+    "pytest-clarity>=1.0.0",
+    "ruff>=0.14.0",
+    "mypy>=1.0.0",
+    "pyrefly>=0.1.0",
+]
+
 [build-system]
 requires = ["uv_build>=0.9.2,<0.10.0"]
 build-backend = "uv_build"

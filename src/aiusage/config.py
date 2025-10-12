@@ -36,7 +36,10 @@ def load_renewal_day() -> Optional[int]:
     try:
         with config_file.open('r') as f:
             config = json.load(f)
-            return config.get('renewal_day')
+            renewal_day = config.get('renewal_day')
+            if isinstance(renewal_day, int):
+                return renewal_day
+            return None
     except (json.JSONDecodeError, OSError):
         return None
 

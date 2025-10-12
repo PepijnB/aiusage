@@ -44,6 +44,9 @@ ruff format src/aiusage/ tests/
 
 # Format only
 ruff format src/aiusage/ tests/
+
+# Type checking
+mypy -p aiusage
 ```
 
 ### CLI Testing

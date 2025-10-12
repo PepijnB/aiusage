@@ -6,7 +6,7 @@ Track your AI credit usage across billing cycles and avoid overages.
 
 from importlib.metadata import version
 
-from aiusage.core import calculate_progress, ordinal_suffix
+from aiusage.core import ProgressResult, calculate_progress, ordinal_suffix
 
 __version__ = version('aiusage')
-__all__ = ['calculate_progress', 'ordinal_suffix']
+__all__ = ['calculate_progress', 'ordinal_suffix', 'ProgressResult']
