@@ -1,0 +1,32 @@
+[project]
+name = "aicheck"
+version = "0.1.0"
+description = "A smart command-line tool for tracking AI credit consumption across billing cycles"
+readme = "README.md"
+authors = [
+    { name = "Michael Kennedy", email = "mikeckennedy@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+license = {text = "MIT"}
+keywords = ["ai", "credits", "usage", "tracking", "cursor", "copilot"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/ai-usage-summary"
+Repository = "https://github.com/yourusername/ai-usage-summary"
+
+[project.scripts]
+aicheck = "aicheck.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9.2,<0.10.0"]
+build-backend = "uv_build"
