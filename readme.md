@@ -77,31 +77,27 @@ Renewal Day: 24th of the month
 
 ## 🚀 Installation
 
-1. **Clone the repository**:
+### From PyPI (when published)
+
+```bash
+uv pip install aicheck
+```
+
+### From Source
+
 ```bash
 git clone https://github.com/yourusername/ai-usage-summary.git
-cd ai-usage-summary
-```
-
-2. **Create a virtual environment** (recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. **Run the script** (no dependencies needed):
-```bash
-python aicheck.py <current_usage_percentage>
+cd ai-usage-summary/aicheck
+uv pip install -e .
 ```
 
 ## 📖 Usage
 
 ### Basic Usage
 
-
-
 ```bash
-python aicheck.py 15 45  # Renewal on 15th, 45% used
+aicheck 15 45  # Renewal on 15th, 45% used
+aicheck 25     # Default renewal day (24th), 25% used
 ```
 
 ### Finding Your Current Usage
@@ -133,7 +129,7 @@ The tool performs three key calculations:
 
 ## 📋 Requirements
 
-- Python 3.10+ (uses modern type hints)
+- Python 3.13+ (uses modern type hints)
 - No external dependencies
 - Works on macOS, Linux, and Windows
 
@@ -165,9 +161,11 @@ Built for developers who want to maximize their AI tool subscriptions without br
 
 ---
 
-**Pro Tip**: Set up a shell alias for quick checks:
+**Pro Tip**: The package installs a `aicheck` command globally:
 ```bash
-alias aicheck='python /path/to/aicheck.py'
 # If your renewal day is the 15th of the month, and usage is 45%
-# just run: aicheck 15 45
+aicheck 15 45
+
+# Or use the default renewal day (24th)
+aicheck 15
 ``` 
