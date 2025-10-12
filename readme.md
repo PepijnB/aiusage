@@ -1,5 +1,7 @@
 # AI Usage 💳
 
+[![PyPI version](https://badge.fury.io/py/aiusage.svg)](https://pypi.org/project/aiusage/)
+
 A smart command-line tool for tracking AI credit consumption across billing cycles. Designed for AI-powered development tools like Cursor, GitHub Copilot, and other subscription-based AI services.
 
 ## 🎯 Why This Matters
@@ -13,7 +15,7 @@ Managing AI credits effectively can save you money and frustration:
 
 ## But my AI already shows percentage used
 
-![](./readme_resources/cursor-progress.webp)
+![](https://raw.githubusercontent.com/mikeckennedy/aiusage/main/readme_resources/cursor-progress.webp)
 
 Yes it might! But that's only half the story. At your current rate, will you still have creates to spare at the end of the period? How much? Are you going over? 
 
@@ -27,7 +29,7 @@ This is a simple CLI tool. But I find knowing the answers with clear numbers for
 - 🎨 **Color-Coded Feedback**: Green for conserving, red for warning, instant visual feedback
 - 🔮 **Smart Projections**: Predicts remaining credits at renewal based on current usage rate
 - 📅 **Flexible Billing Cycles**: Works with any renewal day of the month
-- ⚡ **Zero Dependencies**: Pure Python with no external packages required
+- ⚡ **Minimal Dependencies**: Only platformdirs and cyclopts required
 - 🧮 **Accurate Calculations**: Handles month boundaries and varying cycle lengths
 - 🔒 **Privacy First**: No web services, no logins, no data collection—runs entirely offline
 
@@ -77,10 +79,10 @@ Renewal Day: 1st of the month
 
 ## 🚀 Installation
 
-### From PyPI (when published)
+### From PyPI (using `uv tool`)
 
 ```bash
-uv pip install aiusage
+uv tool install aiusage
 ```
 
 ### From Source
