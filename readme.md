@@ -1,4 +1,4 @@
-# AI Usage Summary 💳
+# AI Check TUI 💳
 
 A smart command-line tool for tracking AI credit consumption across billing cycles. Designed for AI-powered development tools like Cursor, GitHub Copilot, and other subscription-based AI services.
 
@@ -11,6 +11,16 @@ Managing AI credits effectively can save you money and frustration:
 - **Track trends**: See if you're conserving or burning through credits
 - **Plan ahead**: Project your usage through the end of the billing cycle
 
+## But my AI already shows percentage used
+
+![](./readme_resources/cursor-progress.webp)
+
+Yes it might! But that's only half the story. At your current rate, will you still have creates to spare at the end of the period? How much? Are you going over? 
+
+If you have a bunch extra, you can switch to a smarter model or tackle a huge upcoming feature / project sooner rather than later. And visa versa if you're going to be over.
+
+This is a simple CLI tool. But I find knowing the answers with clear numbers for those questions very useful.
+
 ## ✨ Features
 
 - 📊 **Real-time Usage Analysis**: Compares your credit usage against time elapsed in billing cycle
@@ -19,6 +29,7 @@ Managing AI credits effectively can save you money and frustration:
 - 📅 **Flexible Billing Cycles**: Works with any renewal day of the month
 - ⚡ **Zero Dependencies**: Pure Python with no external packages required
 - 🧮 **Accurate Calculations**: Handles month boundaries and varying cycle lengths
+- 🔒 **Privacy First**: No web services, no logins, no data collection—runs entirely offline
 
 ## 📸 Example Output
 
@@ -80,23 +91,17 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. **Run the script** (no dependencies needed):
 ```bash
-python ai_usage.py <current_usage_percentage>
+python aicheck.py <current_usage_percentage>
 ```
 
 ## 📖 Usage
 
 ### Basic Usage
 
-If your billing renewal is on the 24th (default):
-```bash
-python ai_usage.py 45
-```
 
-### Custom Renewal Day
 
-If your renewal is on a different day:
 ```bash
-python ai_usage.py 15 45  # Renewal on 15th, 45% used
+python aicheck.py 15 45  # Renewal on 15th, 45% used
 ```
 
 ### Finding Your Current Usage
@@ -162,6 +167,7 @@ Built for developers who want to maximize their AI tool subscriptions without br
 
 **Pro Tip**: Set up a shell alias for quick checks:
 ```bash
-alias aicheck='python /path/to/ai_usage.py'
-# Then just run: aicheck 45
+alias aicheck='python /path/to/aicheck.py'
+# If your renewal day is the 15th of the month, and usage is 45%
+# just run: aicheck 15 45
 ``` 
