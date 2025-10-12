@@ -38,20 +38,20 @@ When you're conserving credits (good):
 💳 Credit Usage Analysis
 ==================================================
 Current Date: 2025-10-12
-Billing Cycle: Day 18 of 31
-Renewal Day: 24th of the month
+Billing Cycle: Day 12 of 31
+Renewal Day: 1st of the month
 
 🎯 Analysis:
   Credits Used: 25.0%
-  Difference: -8.1%
+  Difference: -13.7%
   Status: CONSERVING WELL
 
 🔮 Projection (at current rate):
-  Expected usage by renewal: 43.1%
-  Expected surplus: 56.9%
+  Expected usage by renewal: 64.6%
+  Expected surplus: 35.4%
 
-✅ Great! You're conserving credits - using 8.1% slower than time
-   You'll have ~56.9% credits remaining at renewal.
+✅ Great! You're conserving credits - using 13.7% slower than time
+   You'll have ~35.4% credits remaining at renewal.
 ```
 
 When you're using too fast (warning):
@@ -59,20 +59,20 @@ When you're using too fast (warning):
 💳 Credit Usage Analysis
 ==================================================
 Current Date: 2025-10-12
-Billing Cycle: Day 18 of 31
-Renewal Day: 24th of the month
+Billing Cycle: Day 12 of 31
+Renewal Day: 1st of the month
 
 🎯 Analysis:
   Credits Used: 75.0%
-  Difference: +16.9%
+  Difference: +36.3%
   Status: USING TOO FAST
 
 🔮 Projection (at current rate):
-  Expected usage by renewal: 129.2%
-  Expected surplus: -29.2%
+  Expected usage by renewal: 193.8%
+  Expected surplus: -93.8%
 
-⚠️  WARNING: You're using credits 16.9% faster than time!
-   💥 You'll exceed 100% usage by 29.2% before renewal!
+⚠️  WARNING: You're using credits 36.3% faster than time!
+   💥 You'll exceed 100% usage by 93.8% before renewal!
 ```
 
 ## 🚀 Installation
