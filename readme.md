@@ -92,6 +92,8 @@ uv tool install aiusage
 ```bash
 git clone https://github.com/mikeckennedy/aiusage.git
 cd aiusage
+uv venv --python-preference only-managed venv
+source venv/bin/activate # .\venv\scripts\activate.bat for Windows
 uv pip install -e .
 ```
 
