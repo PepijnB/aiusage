@@ -81,6 +81,8 @@ Renewal Day: 1st of the month
 
 ### From PyPI (using `uv tool`)
 
+If you don't have uv or have never heard of it, think of it like homebrew for Python CLIs for this purpose. Get it for your system here: [https://docs.astral.sh/uv/](https://docs.astral.sh/uv/).
+
 ```bash
 uv tool install aiusage
 ```
