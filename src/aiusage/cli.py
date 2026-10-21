@@ -35,7 +35,7 @@ def display_analysis(percentage: float, target_day: int) -> None:
     print(f'\n💳 Credit Usage Analysis (v{__version__})')
     print(f'{"=" * 50}')
     print(f'Current Date: {datetime.now().strftime("%Y-%m-%d")}')
-    print(f'Billing Cycle: Day {result["days_since_renewal"]} of {result["days_in_billing_cycle`"]}')
+    print(f'Billing Cycle: Day {result["days_since_renewal"]} of {result["days_in_billing_cycle"]}')
     print(f'Renewal Day: {ordinal_suffix(result["target_day"])} of the month')
     print('\n🎯 Analysis:')
     print(f'  Credits Used: {result["current_percentage"]:.1f}%')
